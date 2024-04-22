@@ -1,40 +1,48 @@
 import { Component } from '@angular/core';
-
+import { CurrencyPipe } from '@angular/common';
+import { Car } from './car.interface';
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [CurrencyPipe],
   template: `
     <section class="container">
       <!-- This article element represents and entire listing -->
+      @for(carEntry of carList; track carEntry) {
       <article class="listing">
         <div class="image-parent">
           <img class="product-image" src="https://placehold.co/100x100" />
         </div>
-        <section class="details">
-          <p class="title"><!-- car make and model--></p>
-          <hr />
-          <p class="detail">
-            <span>Year</span>
-            <span><!-- year --></span>
-          </p>
-          <div class="detail">
-            <span>Transmission</span>
-            <span><!-- transmission --></span>
-          </div>
-          <p class="detail">
-            <span>Mileage</span>
-            <span><!-- miles --></span>
-          </p>
-          <p class="detail">
-            <span>Price</span>
-            <span><!-- price --></span>
-          </p>
-        </section>
-      </article>
+          <section class="details">
+            <p class="title"> {{ carEntry.make }} {{carEntry.model}} </p>
+            <hr />
+            <p class="detail">
+              <span>Year</span>
+              <span>{{ carEntry.year }}</span>
+            </p>
+            <div class="detail">
+              <span>Transmission</span>
+              <span>{{ carEntry.transmission }}</span>
+            </div>
+            <p class="detail">
+              <span>Mileage</span>
+              <span>{{ carEntry.miles }}</span>
+            </p>
+            <p class="detail">
+              <span>Price</span>
+              <span>{{ carEntry.price | currency: 'USD'}}</span>
+            </p>
+          </section>
+        </article>
+      } @empty {
+        <p>No cars available</p>
+      }
     </section>
   `,
   styleUrl: 'app.component.css',
 })
+
+
 export class AppComponent {
   carList = [
     {
@@ -70,4 +78,6 @@ export class AppComponent {
       transmission: 'Automatic',
     },
   ];
+
+  // carList : Car[] = [];
 }

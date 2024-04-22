@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [CurrencyPipe],
   template: `
     <article class="offer">
       <h1>
         <span>Bonus Offer</span>
-        <span>&dollar;<!-- ITEM PRICE --></span>
+        <span>{{ item.price | currency: 'USD' }}</span>
       </h1>
       <img src="/assets/noun-product-6277512.png" width="400" />
-      <p><!-- ITEM NAME--></p>
-      <p><!-- ITEM DESCRIPTION --></p>
+      <p>{{ item.name }}</p>
+      <p> {{ item.description }} </p>
       <button>Order Now</button>
     </article>
   `,
